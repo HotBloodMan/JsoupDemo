@@ -81,22 +81,61 @@ public class MainActivity extends AppCompatActivity {
 * e = <a href="/aggsite/mycommented" title="我评论过的博文">我评</a>
 *  aaa--->>> e = 我评
 * */
-//                Elements select = doc.select("a[href]");
-//                for(Element e:select){
-//                    Log.d("TAG","aaa--->>> e = "+e.toString());
-//                    Log.d("TAG","aaa---------------------------------------->>>>>>>>>>>> ");
-//                    Log.d("TAG","aaa--->>> e = "+e.text().toString());
-//
-//                }
+                //抓特定的标题 如<h3><a class="titlelnk" href="http://www.cnblogs.com/CloudMan6/p/6806193.html" target="_blank">镜像的分层结构 - 每天5分钟玩转容器技术（11）</a></h3>
+                Elements select = doc.getElementsByTag("h3").select("a[href]");
+                for(Element e:select){
+                    Log.d("TAG","aaa--->>> e = "+e.toString());
+                    Log.d("TAG","aaa---------------------------------------->>>>>>>>>>>> ");
+                    Log.d("TAG","aaa--->>> e = "+e.text().toString());
+
+                }
+                System.out.println("cccc====>>>>----------------------------");
 //                Elements h3 = doc.select("#post_item .post_item.body h3 a");
 //                Log.d("TAG","aaa--->>> h3 = "+h3.get(0).toString());
 //                Log.d("TAG","aaa--->>> h3 1 = "+h3.get(1).toString());
 //                Log.d("TAG","aaa--->>> h3 2= "+h3.get(2).toString());
 //                 Log.d("TAG","aaa---------------------------------------->>>>>>>>>>>> ");
+
+                //拿图片,也可以拿特定的图片
                 Elements imgElements=doc.select("img[src$=.png]"); // 查找扩展名为.png的图片DOM节点
                 for(Element e:imgElements){
                     System.out.println(e.toString());
                 }
+                 /*
+               * <img width="48" height="48" class="pfs" src="//pic.cnblogs.com/face/440369/20150215133556.png" alt="">
+               * cccc====>>>>//pic.cnblogs.com/face/440369/20150215133556.png
+               * cccc====>>>>222
+               * */
+                for(Element e:imgElements){
+//                    System.out.println(e.toString());
+//                    System.out.println("cccc====>>>>"+e.attr("src").toString());
+                    //能选出特定尺寸的图片
+                    System.out.println("cccc====>>>>333 "+e.select("[width=48]").select("[height=48]").attr("src").toString());
+//                    System.out.println("cccc====>>>>222"+e.getElementsByTag("src").text());
+                }
+                System.out.println("-----------------------------------------------------------------");
+                //抓文本
+                /*
+                *  cccc====>>>>333---->>p <p class="post_item_summary"> <a href="http://www.cnblogs.com/guanmanman/"
+                 *  target="_blank"><img width="48" height="48" class="pfs"
+                 *  src="//pic.cnblogs.com/face/955290/20160512181121.png"
+                 *  alt=""></a>
+                  *  JNI：Java Native Interface 也就是java本地接口，它是一个协议，这个协议用来沟通java代码和本地代码(c/c++)。通过这个协议，Java类的某些方法可以使用原生实现，同时让它们可以像普通的Java方法一样被调用和使用，而原生方法也可以使用Java对象，调用和使用Java... ... </p>
+                *
+                *
+                *
+                * */
+//                String p = doc.getElementsByTag("p").select("[class=post_item_summary]").toString();
+//                System.out.println("cccc====>>>>333---->>p "+p.toString());
+                //只能抓到第一个文本
+//                String p1 = doc.getElementsByTag("p").select("[class=post_item_summary]").text();
+//                System.out.println("cccc====>>>>333---->>p1 "+p1.toString());
+               //这个能抓一个集合的文本。
+                Elements p = doc.getElementsByTag("p").select("[class=post_item_summary]");
+                for(Element s:p){
+                    System.out.println("cccc====>>>>333---->> sss "+s.text().toString());
+                }
+
 
             }
 
